@@ -11,9 +11,8 @@ if ($con) {
 $fim = false;
 
 
+while (!$fim) 
 
-
-while (!$fim) {
     //menu
     echo "escolha uma opção:\n";
     echo "Inserir uma receita -> 1\n";
@@ -52,11 +51,10 @@ function mostrarReceitas($con)
     $modo = readline("Modo de Preparação: ");
     $tempo =readline("tempo de preparação:");
     $doses =readline("doses estimadas:");
-    $ingredientes=readline("adicionar 3 ingredientes");
-    $categoria =readline(" género de receita");
+    
 
     // Criar comando SQL
-    $sql = "INSERT INTO RECEITAS (nome da receita,modo de preparação,tempo de preparação,doses estimadas,adicionar 3 ingredientes,género de receita) VALUES ('$id', '$modo','$tempo','$doses','$ingredientes','$categoria')";
+    $sql = "INSERT INTO RECEITAS (nome da receita,modo de preparação,tempo de preparação,doses estimadas) VALUES ('$id', '$modo','$tempo','$doses')";
 
     //Executar o comando SQL
     if (mysqli_query($con, $sql)) {
@@ -70,7 +68,7 @@ function mostrarReceitas($con)
 function listarReceitas($con){
     $id= readline("Nome da receita");
     $nome= readline("lista das receitas");
-    $sql = "INSERT INTO RECEITAS (nome da receita,modo de preparação,tempo de preparação,doses estimadas,adicionar 3 ingredientes,género de receita) VALUES ('$id', '$nome')";
+    $sql = "INSERT INTO RECEITAS (nome da receita,modo de preparação,tempo de preparação,doses estimadas) VALUES ('$id', '$nome')";
 
     //Executar o comando SQL
     if (mysqli_query($con, $sql)) {
@@ -83,16 +81,31 @@ function listarReceitas($con){
 
 function atualizarReceitas($con){
     $id= readline(" atualizar receitas existentes");
+ } 
 
-}   
 
 
 function apagarReceitas($con){
-    $id = readline(" apagar receitas existentes");
+    mostrarReceitas($con,false);
+    $id = readline(" ID da receita que deseja remover:");
+    $sql = "SELECT id FROM receitas WHERE id =$id";
+    $verificacao = mysqli_query($con,$sql);
+    if (mysqli_num_rows ($verificacao) == 0){
+        echo ("Erro: Receita não encontrada");
+        return;
+    
 
 }
 
 
+
+function voltarMenu(){
+    $input = "";
+    echo "Selecione 0 Para voltar: ";
+    while ($input != "0") {
+        $input = readline("");
+    }
+}
 
 
 
