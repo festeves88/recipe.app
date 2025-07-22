@@ -12,11 +12,14 @@ $fim = false;
 
 
 
+
 while (!$fim) {
     //menu
     echo "escolha uma opção:\n";
     echo "Inserir uma receita -> 1\n";
-    echo "Inserir uma categoria->2\n";
+    echo "Listar todas as receitas->2\n";
+    echo "Atualizar receitas existentes->3\n";
+     echo "Apagar receitas->4\n";
 
     
     echo "Sair do programa -> 0\n";
@@ -33,8 +36,13 @@ while (!$fim) {
         case 1:
             mostrarReceitas($con);
             break;
-         case 2:
-            mostrarcategoriaReceitas($con);   
+          case 2:
+            listarReceitas($con); 
+         
+        case 3: atualizarReceitas($con);
+             break;
+        case 4: apagarReceitas($con) ;  
+
 
     }
 
@@ -59,21 +67,30 @@ function mostrarReceitas($con)
 
 }
 
-function mostrarcategoriaReceitas($con){
-    $id= readline("id das categorias");
-    $nome= readline("nome das categorias das receitas");
-    $sql= "INSERT INTO Categoria( id das categorias, nome das categorias das receitas) VALUES('$id','$nome',)";
+function listarReceitas($con){
+    $id= readline("Nome da receita");
+    $nome= readline("lista das receitas");
+    $sql = "INSERT INTO RECEITAS (nome da receita,modo de preparação,tempo de preparação,doses estimadas,adicionar 3 ingredientes,género de receita) VALUES ('$id', '$nome')";
 
+    //Executar o comando SQL
     if (mysqli_query($con, $sql)) {
-        echo "categoria inserida com sucesso\n";
+        echo "receita inserida com sucesso\n";
     } else {
-        echo "Erro ao inserir a categoria\n";
+        echo "Erro ao inserir a receita\n";
     }
 
 }
 
+function atualizarReceitas($con){
+    $id= readline(" atualizar receitas existentes");
+
+}   
 
 
+function apagarReceitas($con){
+    $id = readline(" apagar receitas existentes");
+
+}
 
 
 
